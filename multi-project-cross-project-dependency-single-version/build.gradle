@@ -7,9 +7,7 @@ buildscript {
 
 
   repositories {
-    maven {
-      url "http://mvnrepo/nexus/content/groups/public"
-    }
+    mavenCentral()
     mavenLocal()
   }
 }
@@ -18,7 +16,6 @@ plugins {
     id 'idea'
 }
 
-project.ext.set("mavenUploadRepository", project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases')
 
 allprojects {
     apply plugin: 'java'
@@ -41,6 +38,8 @@ allprojects {
     }
     afterReleaseBuild.dependsOn('install')
 
+
+    project.ext.set("mavenUploadRepository", project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases')
     publishing {
         publications {
             mavenJava(MavenPublication) {
