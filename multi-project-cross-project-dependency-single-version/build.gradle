@@ -1,10 +1,31 @@
+buildscript {
+  // Needed to enable publish-auth plugin
+  dependencies {
+    classpath 'org.hibernate.build.gradle:gradle-maven-publish-auth:2.0.1'
+    classpath 'net.researchgate:gradle-release:2.4.0'
+  }  
+
+
+  repositories {
+    maven {
+      url "http://mvn.corp.attivio.com:10000/nexus/content/groups/public"
+    }
+    mavenLocal()
+  }
+}
+
 plugins {
     id 'idea'
     id 'net.researchgate.release' version '2.3.5'
 }
 
+project.ext.set("mavenUploadRepository", project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases')
+
 allprojects {
     apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish-auth'
 
     repositories {
         jcenter()
@@ -13,7 +34,27 @@ allprojects {
     dependencies {
         testCompile group: 'junit', name: 'junit', version: '4.12'
     }
+
+    group='com.attivio.releng.examples'
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+
+      repositories {
+        maven {
+          name "${project.mavenUploadRepository}"
+          url "http://mvn.corp.attivio.com:10000/nexus/content/repositories/${project.mavenUploadRepository}"
+        }
+      }
+
+    }
 }
+
+
 
 release {
     tagTemplate = '$name-$version'
@@ -31,3 +72,4 @@ beforeReleaseBuild.dependsOn startmessage
 afterReleaseBuild.dependsOn printversion
 
 wrapper.gradleVersion = '2.10'
+
