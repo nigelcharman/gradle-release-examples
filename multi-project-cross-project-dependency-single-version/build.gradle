@@ -16,7 +16,6 @@ buildscript {
 
 plugins {
     id 'idea'
-    id 'net.researchgate.release' version '2.3.5'
 }
 
 project.ext.set("mavenUploadRepository", project.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases')
@@ -41,7 +40,7 @@ allprojects {
         tagTemplate = '$name-$version'
     }
     afterReleaseBuild.dependsOn('publish')
-    
+
     publishing {
         publications {
             mavenJava(MavenPublication) {
