@@ -39,7 +39,7 @@ allprojects {
     release {
         tagTemplate = '$name-$version'
     }
-    afterReleaseBuild.dependsOn('publish')
+    afterReleaseBuild.dependsOn('install')
 
     publishing {
         publications {
