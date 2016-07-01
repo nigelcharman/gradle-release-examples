@@ -26,7 +26,7 @@ allprojects {
     apply plugin: 'maven'
     apply plugin: 'maven-publish'
     apply plugin: 'maven-publish-auth'
-
+    apply plugin: "net.researchgate.release"
     repositories {
         jcenter()
     }
