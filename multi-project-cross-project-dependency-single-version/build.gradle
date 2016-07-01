@@ -37,6 +37,11 @@ allprojects {
 
     group='com.attivio.releng.examples'
 
+    release {
+        tagTemplate = '$name-$version'
+    }
+    afterReleaseBuild.dependsOn('publish')
+    
     publishing {
         publications {
             mavenJava(MavenPublication) {
@@ -54,11 +59,6 @@ allprojects {
     }
 }
 
-
-
-release {
-    tagTemplate = '$name-$version'
-}
 
 task(startmessage) << {
     println 'starting build'
