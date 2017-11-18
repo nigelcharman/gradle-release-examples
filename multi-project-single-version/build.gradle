@@ -25,6 +25,72 @@ allprojects {
 
     beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
     afterReleaseBuild.dependsOn printversion
+
+       publishing {
+        publications {
+            main(MavenPublication) {
+
+                from components.java
+
+                pom.withXml {
+                    asNode().children().last() + {
+                        resolveStrategy = Closure.DELEGATE_FIRST
+
+                        name project.name
+                        description project.description
+                        url 'http://www.concordion.org/cubano'
+                        packaging 'jar'
+                        inceptionYear '2017'
+
+                        scm {
+                            url gitVcsUrl
+                            connection vcsConnection
+                            developerConnection vcsConnection
+                        }
+
+                        licenses {
+                            license {
+                                name 'The Apache Software License, Version 2.0'
+                                url 'http://www.apache.org/licenses/LICENSE-2.0.html'
+                                distribution 'repo'
+                            }
+                        }
+
+                        issueManagement {
+                            system 'GitHub Issues'
+                            url issuesUrl
+                        }
+
+                        developers {
+                            developer {
+                                id 'andrew-sumner'
+                                name 'Andrew Sumner'
+                                roles { role 'Project Creator' }
+                            }
+                            developer {
+                                id 'nigelcharman'
+                                name 'Nigel Charman'
+                                roles { role 'Developer' }
+                            }
+                            developer {
+                                id 'jimmykemp'
+                                name 'Jimmy Kemp'
+                                roles { role 'Developer' }
+                            }
+                        }
+                    }
+                    asNode().dependencies.'*'.findAll() {
+                        it.scope.text() == 'runtime' && project.configurations.compile.allDependencies.find { dep ->
+                            dep.name == it.artifactId.text()
+                        }
+                    }.each() {
+                        it.scope*.value = 'compile'
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 release {
