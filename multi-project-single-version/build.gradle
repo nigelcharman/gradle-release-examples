@@ -23,7 +23,7 @@ allprojects {
         println project.version
     }
 
-    beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
+    beforeReleaseBuild.dependsOn startmessage, publishMainPublicationToMavenRepository
     afterReleaseBuild.dependsOn printversion
 
        publishing {
