@@ -21,6 +21,8 @@ allprojects {
 
     task(printversion) << {
         println project.version
+        println project.group
+        println project.name
     }
 
     beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
