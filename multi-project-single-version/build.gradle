@@ -42,6 +42,10 @@ task build {
     dependsOn subprojects*.tasks*.findByName('build').minus(null)
 }
 
+task publishRelease()
+publishRelease.dependsOn 'release'
+
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'findbugs'
@@ -123,7 +127,10 @@ subprojects {
         tagTemplate = '$name-$version'
     }
 
-    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', getTasksByName('release', true)])
+    // task publishRelease()
+    // publishRelease.dependsOn 'net.researchgate.release'
+//    publishRelease.dependsOn getTasksByName('release', true)
+    // task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', getTasksByName('release', true)])
 
     gitPublish {
         repoUri = 'git@github.com:concordion/cubano.git'
