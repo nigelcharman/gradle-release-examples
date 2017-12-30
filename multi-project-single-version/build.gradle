@@ -42,8 +42,8 @@ task build {
     dependsOn subprojects*.tasks*.findByName('build').minus(null)
 }
 
-task publishRelease()
-publishRelease.dependsOn 'release'
+// task publishRelease()
+// publishRelease.dependsOn 'release'
 
 
 subprojects {
@@ -107,7 +107,7 @@ subprojects {
         println project.name
     }
 
-    // beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
+    beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
     afterReleaseBuild.dependsOn printversion
 
 
@@ -130,7 +130,7 @@ subprojects {
     // task publishRelease()
     // publishRelease.dependsOn 'net.researchgate.release'
 //    publishRelease.dependsOn getTasksByName('release', true)
-    beforeReleaseBuild.dependsOn(['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs'])
+    // publishRelease.dependsOn(['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs'])
 
     gitPublish {
         repoUri = 'git@github.com:concordion/cubano.git'
