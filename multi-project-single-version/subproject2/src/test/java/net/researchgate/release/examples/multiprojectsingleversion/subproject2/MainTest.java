@@ -34,6 +34,6 @@ public class MainTest {
     @Test
     public void testMain() {
         Main.main(new String[]{});
-        Assert.assertEquals("Hello Subproject1!", outContent.toString().trim());
+        Assert.assertEquals("Hello Subproject2!", outContent.toString().trim());
     }
 }

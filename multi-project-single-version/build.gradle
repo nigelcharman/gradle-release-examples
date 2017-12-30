@@ -117,12 +117,13 @@ subprojects {
 
     task publishSnapshot(dependsOn: ['test', 'publishMainPublicationToMavenRepository'])
 
-    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', 'release'])
     commitNewVersion.enabled = false  // TODO - need to check what this does
 
     release {
         tagTemplate = '$name-$version'
     }
+
+    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', getTasksByName('release', true)])
 
     gitPublish {
         repoUri = 'git@github.com:concordion/cubano.git'
