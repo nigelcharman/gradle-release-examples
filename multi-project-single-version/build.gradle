@@ -107,6 +107,36 @@ subprojects {
     afterReleaseBuild.dependsOn printversion
 
 
+    // 'gradle release' will also upload release to Bintray
+    // createReleaseTag.dependsOn bintrayUpload
+
+    gitPublishCopy.dependsOn test
+    gitPublishCopy.dependsOn javadoc
+
+    task publishDocs()
+
+    task publishSnapshot(dependsOn: ['test', 'publishMainPublicationToMavenRepository'])
+
+    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', 'release'])
+    commitNewVersion.enabled = false  // TODO - need to check what this does
+
+    release {
+        tagTemplate = '$name-$version'
+    }
+
+    gitPublish {
+        repoUri = 'git@github.com:concordion/cubano.git'
+        branch = 'gh-pages'
+
+        contents {
+            from(javadoc) {
+                into 'api'
+            }
+        }
+
+        // message used when committing changes
+        commitMessage = 'Automatically publishing new Github pages'
+    }
 
     // Publishing
     task sourcesJar(type: Jar, dependsOn: classes) {
