@@ -104,7 +104,7 @@ subprojects {
         println project.name
     }
 
-    beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal, ':clean'
+    beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
     afterReleaseBuild.dependsOn printversion
 
 
@@ -124,7 +124,7 @@ subprojects {
         tagTemplate = '$name-$version'
     }
 
-    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', ':subproject1:release'])
+    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', ':release'])
 
     // publishRelease.dependsOn 'net.researchgate.release'
 //    publishRelease.dependsOn getTasksByName('release', true)
