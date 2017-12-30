@@ -118,13 +118,13 @@ subprojects {
 
     task publishSnapshot(dependsOn: ['test', 'publishMainPublicationToMavenRepository'])
 
-    commitNewVersion.enabled = false  // TODO - need to check what this does
+    // commitNewVersion.enabled = false  // TODO - need to check what this does
 
-    release {
-        tagTemplate = '$name-$version'
-    }
+    // release {
+        // tagTemplate = '$name-$version'
+    // }
 
-    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', ':release'])
+    // task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', ':release'])
 
     // publishRelease.dependsOn 'net.researchgate.release'
 //    publishRelease.dependsOn getTasksByName('release', true)
