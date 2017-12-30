@@ -124,10 +124,11 @@ subprojects {
         tagTemplate = '$name-$version'
     }
 
-    // task publishRelease()
+    task publishRelease(dependsOn: ['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', ':release'])
+
     // publishRelease.dependsOn 'net.researchgate.release'
 //    publishRelease.dependsOn getTasksByName('release', true)
-    publishRelease.dependsOn(['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', 'release'])
+    // publishRelease.dependsOn(['clean', 'test', 'javadoc', 'sourcesJar', 'javadocJar', 'publishDocs', 'release'])
 
     gitPublish {
         repoUri = 'git@github.com:concordion/cubano.git'
