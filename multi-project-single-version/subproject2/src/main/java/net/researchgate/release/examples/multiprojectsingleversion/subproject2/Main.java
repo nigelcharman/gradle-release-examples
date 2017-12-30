@@ -7,10 +7,10 @@
  * file that was distributed with this source code.
  */
 
-package net.researchgate.release.examples.multiprojectsingleversion.subproject1;
+package net.researchgate.release.examples.multiprojectsingleversion.subproject2;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello Subproject1!");
+        System.out.println("Hello Subproject2!");
     }
 }

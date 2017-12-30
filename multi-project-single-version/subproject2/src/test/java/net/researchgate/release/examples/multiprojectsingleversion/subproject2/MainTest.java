@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-package net.researchgate.release.examples.multiprojectsingleversion.subproject1;
+package net.researchgate.release.examples.multiprojectsingleversion.subproject2;
 
 import org.junit.After;
 import org.junit.Assert;
