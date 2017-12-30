@@ -123,20 +123,19 @@ subprojects {
         from javadoc.destinationDir
     }
 
-
-    // publishing {
-    //     repositories {
-    //         maven {
-    //             if (project.version.endsWith('-SNAPSHOT')) {
-    //                 url "http://oss.jfrog.org/artifactory/simple/oss-snapshot-local/"
-    //                 credentials {
-    //                     username bintrayUsername
-    //                     password bintrayApiKey
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    publishing {
+        repositories {
+            maven {
+                if (project.version.endsWith('-SNAPSHOT')) {
+                    url "http://oss.jfrog.org/artifactory/simple/oss-snapshot-local/"
+                    credentials {
+                        username bintrayUsername
+                        password bintrayApiKey
+                    }
+                }
+            }
+        }
+    }
 
     publishing {
         publications {
@@ -206,6 +205,39 @@ subprojects {
                         it.scope*.value = 'compile'
                     }
                 }
+            }
+        }
+    }
+
+    bintray {
+        user = bintrayUsername   // set this in your ~/.gradle/gradle.properties file
+        key = bintrayApiKey         // set this in your ~/.gradle/gradle.properties file
+        publications = ['main'] // see publications closure
+//        dryRun = true
+//        publish = true
+        pkg {
+            repo = 'maven'
+            userOrg = 'concordion'
+            name = project.name
+            desc = project.description
+            licenses = ['Apache-2.0']
+            issueTrackerUrl = issuesUrl
+            vcsUrl = gitVcsUrl
+            websiteUrl = 'http://concordion.org/cubano'
+            version {
+                name = project.version
+                released = new Date()
+                vcsTag = project.version
+                gpg {
+                    sign = true
+                    passphrase = bintrayPassphrase // set this in your ~/.gradle/gradle.properties file
+                }
+                //            mavenCentralSync {
+                //                sync = true
+                //                user = sonatypeUsername              // set this in your ~/.gradle/gradle.properties file
+                //                password = sonatypePassword          // OSS user password// set this in your ~/.gradle/gradle.properties file
+                //                close = '1'
+                //            }
             }
         }
     }
