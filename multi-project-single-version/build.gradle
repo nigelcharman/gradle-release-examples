@@ -107,7 +107,7 @@ subprojects {
         println project.name
     }
 
-    beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
+    // beforeReleaseBuild.dependsOn startmessage, publishToMavenLocal
     afterReleaseBuild.dependsOn printversion
 
 
