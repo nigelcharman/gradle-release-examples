@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'net.researchgate.release' version '2.3.5'
+    id 'net.researchgate.release' version '2.6.0'
 }
 
 allprojects {
@@ -32,4 +32,4 @@ release {
 }
 
 
-wrapper.gradleVersion = '2.10'
+wrapper.gradleVersion = '4.4.1'
